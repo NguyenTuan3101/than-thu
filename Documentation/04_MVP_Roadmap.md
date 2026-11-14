@@ -28,9 +28,9 @@
 
 ## Phase 4 — Juice giấy mực
 
-- Ink bloom / seal / wipe  
-- Âm page + mực  
-- PWA nhẹ  
+- [x] Ink bloom / seal / wipe  
+- [x] Âm page + mực (Web Audio)  
+- [x] PWA nhẹ (`vite-plugin-pwa`)  
 
 ## Done khi
 

@@ -6,6 +6,7 @@ import {
   availableActions,
   useRunStore,
 } from '../game/run/runStore'
+import { triggerJuice } from '../juice/bus'
 
 export function RunPanel() {
   const absorbRun = useMetaStore((s) => s.absorbRun)
@@ -94,7 +95,11 @@ export function RunPanel() {
               title={meta?.hint}
               onClick={() => {
                 const result = doAction(a.id)
+                if (result.newTraits.length) {
+                  triggerJuice('bloom', traitById(result.newTraits[0]!).name)
+                }
                 if (result.ended) {
+                  triggerJuice(result.end === 'dead' ? 'wipe' : 'seal')
                   const reason =
                     result.end === 'dead'
                       ? 'Đằng gãy giữa kiếp — vẫn giữ được một phần lĩnh ngộ.'

@@ -1,0 +1,133 @@
+.juice-layer {
+  pointer-events: none;
+  position: fixed;
+  inset: 0;
+  z-index: 80;
+  overflow: hidden;
+}
+
+.juice {
+  position: absolute;
+  inset: 0;
+  display: grid;
+  place-items: center;
+}
+
+.juice-bloom {
+  width: min(52vw, 320px);
+  height: min(52vw, 320px);
+  border-radius: 50%;
+  background: radial-gradient(
+    circle,
+    color-mix(in srgb, var(--seal) 35%, transparent) 0%,
+    color-mix(in srgb, var(--ink) 18%, transparent) 42%,
+    transparent 70%
+  );
+  animation: ink-bloom 0.75s ease-out forwards;
+}
+
+.juice-seal {
+  font-size: clamp(3rem, 12vw, 5.5rem);
+  color: var(--seal);
+  border: 4px solid var(--seal);
+  border-radius: 8px;
+  padding: 0.15em 0.25em;
+  line-height: 1;
+  background: color-mix(in srgb, var(--paper) 70%, transparent);
+  animation: seal-stamp 0.55s cubic-bezier(0.2, 1.4, 0.3, 1) forwards;
+  box-shadow: 0 8px 24px color-mix(in srgb, var(--seal) 25%, transparent);
+}
+
+.juice-wipe {
+  position: absolute;
+  inset: 0;
+  background: linear-gradient(
+    100deg,
+    transparent 0%,
+    color-mix(in srgb, var(--ink) 12%, transparent) 35%,
+    color-mix(in srgb, var(--parchment) 55%, transparent) 50%,
+    color-mix(in srgb, var(--ink) 12%, transparent) 65%,
+    transparent 100%
+  );
+  transform: translateX(-120%);
+  animation: brush-wipe 0.5s ease-in-out forwards;
+}
+
+.juice-label {
+  position: absolute;
+  bottom: 18%;
+  padding: 0.35rem 0.7rem;
+  border: 1px solid color-mix(in srgb, var(--seal) 40%, transparent);
+  background: color-mix(in srgb, var(--paper) 90%, white);
+  color: var(--seal);
+  border-radius: 4px;
+  font-size: 0.95rem;
+  animation: label-fade 0.75s ease-out forwards;
+}
+
+.panel-enter {
+  animation: panel-ink-in 0.35s ease-out;
+}
+
+@keyframes ink-bloom {
+  from {
+    transform: scale(0.2);
+    opacity: 0.85;
+  }
+  to {
+    transform: scale(1.35);
+    opacity: 0;
+  }
+}
+
+@keyframes seal-stamp {
+  0% {
+    transform: scale(1.45) rotate(-8deg);
+    opacity: 0;
+  }
+  55% {
+    transform: scale(0.96) rotate(1deg);
+    opacity: 1;
+  }
+  100% {
+    transform: scale(1) rotate(0deg);
+    opacity: 0;
+  }
+}
+
+@keyframes brush-wipe {
+  from {
+    transform: translateX(-120%);
+  }
+  to {
+    transform: translateX(120%);
+  }
+}
+
+@keyframes label-fade {
+  0% {
+    opacity: 0;
+    transform: translateY(8px);
+  }
+  25% {
+    opacity: 1;
+    transform: translateY(0);
+  }
+  100% {
+    opacity: 0;
+    transform: translateY(-6px);
+  }
+}
+
+@keyframes panel-ink-in {
+  from {
+    opacity: 0;
+    filter: blur(2px);
+    transform: translateY(6px);
+  }
+  to {
+    opacity: 1;
+    filter: none;
+    transform: none;
+  }
+}

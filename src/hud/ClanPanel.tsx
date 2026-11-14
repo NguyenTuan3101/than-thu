@@ -2,6 +2,7 @@ import { useEffect } from 'react'
 import { EDICTS } from '../game/data/edicts'
 import { useClanStore, type ClanId } from '../game/clan/clanStore'
 import { useMetaStore } from '../game/meta/store'
+import { triggerJuice } from '../juice/bus'
 
 function ClanCard({ id }: { id: ClanId }) {
   const clan = useClanStore((s) => s.clans[id])
@@ -66,6 +67,7 @@ export function ClanPanel() {
         <button
           type="button"
           onClick={() => {
+            triggerJuice('bloom', 'Cúng tế')
             window.alert(offerRitual())
           }}
         >
@@ -80,6 +82,8 @@ export function ClanPanel() {
             disabled={player.uy < e.cost.uy || player.linh < e.cost.linh}
             onClick={() => {
               const result = issueEdict(e.id)
+              if (result.ok) triggerJuice('seal', e.name)
+              else triggerJuice('wipe')
               window.alert(result.message)
             }}
           >

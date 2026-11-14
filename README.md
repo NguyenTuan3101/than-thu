@@ -13,11 +13,12 @@ npm install
 npm run dev
 ```
 
-## Stub hiện có
+## Hiện có (MVP phases 1–4)
 
-- Hub gia từ: tích Suy diễn, mở Kỳ Suy diễn  
-- Run: roll tag thế giới, chọn hành động theo mùa, thưởng meta  
-- Pixi: dây đằng mực trên giấy tuyên  
+- Hub + Kỳ Suy diễn + 12 năng lực  
+- Thần Thụ + Ban chỉ + 2 gia tộc địch  
+- Juice: ink bloom / ấn son / brush wipe + Web Audio  
+- PWA (installable khi build/`preview`)  
 
 ## Scripts
 
