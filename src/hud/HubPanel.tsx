@@ -1,9 +1,19 @@
-import { RUN_COST, canStartRun, useMetaStore } from '../game/meta/store'
+import { traitById } from '../game/data/traits'
+import {
+  RUN_COST,
+  THAN_THU_BEST_AGE,
+  THAN_THU_RUNS,
+  canStartRun,
+  useMetaStore,
+} from '../game/meta/store'
 import { useRunStore } from '../game/run/runStore'
 
 export function HubPanel() {
   const suyDien = useMetaStore((s) => s.suyDien)
   const thanThu = useMetaStore((s) => s.thanThu)
+  const permanentTraits = useMetaStore((s) => s.permanentTraits)
+  const bestAge = useMetaStore((s) => s.bestAge)
+  const runsCompleted = useMetaStore((s) => s.runsCompleted)
   const addSuyDien = useMetaStore((s) => s.addSuyDien)
   const setScreen = useMetaStore((s) => s.setScreen)
   const ascendThanThu = useMetaStore((s) => s.ascendThanThu)
@@ -26,6 +36,31 @@ export function HubPanel() {
         <span>Cảnh giới</span>
         <strong>{thanThu ? 'Thần Thụ' : 'Đồ Đằng'}</strong>
       </div>
+      <div className="stat-row">
+        <span>Kiếp đã qua</span>
+        <strong>
+          {runsCompleted} / {THAN_THU_RUNS}
+        </strong>
+      </div>
+      <div className="stat-row">
+        <span>Tuổi kỷ lục</span>
+        <strong>
+          {bestAge} / {THAN_THU_BEST_AGE}
+        </strong>
+      </div>
+
+      {permanentTraits.length > 0 && (
+        <div className="trait-wrap">
+          <div className="trait-title">Năng lực khắc gia từ</div>
+          <div className="trait-chips">
+            {permanentTraits.map((id) => (
+              <span key={id} className="chip" title={traitById(id).desc}>
+                {traitById(id).name}
+              </span>
+            ))}
+          </div>
+        </div>
+      )}
 
       <div className="actions">
         <button type="button" onClick={() => addSuyDien(1)}>
@@ -37,7 +72,7 @@ export function HubPanel() {
           disabled={!ready}
           onClick={() => {
             useMetaStore.getState().addSuyDien(-RUN_COST)
-            startRun()
+            startRun(useMetaStore.getState().permanentTraits)
             setScreen('run')
           }}
         >
@@ -50,8 +85,13 @@ export function HubPanel() {
         )}
       </div>
 
+      {!thanThu && (
+        <p className="muted tip">
+          Thần Thụ khi đủ {THAN_THU_RUNS} kiếp và tuổi kỷ lục ≥ {THAN_THU_BEST_AGE} (hoặc nút Dev).
+        </p>
+      )}
       {thanThu && (
-        <p className="seal-note">Ấn thần đã đóng. Ban chỉ trị tộc sẽ mở ở sprint sau.</p>
+        <p className="seal-note">Ấn thần đã đóng. Ban chỉ trị tộc → Phase 3.</p>
       )}
     </section>
   )

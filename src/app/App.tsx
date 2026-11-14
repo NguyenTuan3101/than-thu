@@ -8,7 +8,12 @@ import './app.css'
 export function App() {
   const screen = useMetaStore((s) => s.screen)
   const thanThu = useMetaStore((s) => s.thanThu)
+  const bestAge = useMetaStore((s) => s.bestAge)
+  const traitCount = useMetaStore((s) => s.permanentTraits.length)
   const age = useRunStore((s) => s.age)
+  const runTraits = useRunStore((s) => s.traits.length)
+
+  const vineAge = screen === 'run' ? Math.max(age, runTraits) : thanThu ? 8 : Math.max(2, bestAge, traitCount)
 
   return (
     <div className="shell">
@@ -16,7 +21,7 @@ export function App() {
         {screen === 'hub' ? <HubPanel /> : <RunPanel />}
       </aside>
       <main className="shell-stage">
-        <VineStage age={screen === 'run' ? age : thanThu ? 8 : 2} thanThu={thanThu} />
+        <VineStage age={vineAge} thanThu={thanThu} />
         <div className="stage-caption">
           <span className="dao">藤</span>
           <span>{thanThu ? 'Thần Thụ' : 'Đồ Đằng'} · mực trên giấy tuyên</span>

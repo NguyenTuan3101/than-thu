@@ -120,6 +120,53 @@
   font-size: 0.9rem;
 }
 
+.tip {
+  margin-top: 0.85rem;
+}
+
+.trait-wrap {
+  margin-top: 0.9rem;
+}
+
+.trait-title {
+  font-size: 0.85rem;
+  color: var(--ink-soft);
+  margin-bottom: 0.4rem;
+}
+
+.trait-chips {
+  display: flex;
+  flex-wrap: wrap;
+  gap: 0.35rem;
+}
+
+.chip {
+  display: inline-block;
+  padding: 0.2rem 0.5rem;
+  border: 1px solid color-mix(in srgb, var(--seal) 45%, transparent);
+  border-radius: 999px;
+  font-size: 0.78rem;
+  color: var(--seal);
+  background: color-mix(in srgb, var(--seal) 8%, var(--paper));
+}
+
+.actions button {
+  display: flex;
+  flex-direction: column;
+  align-items: flex-start;
+  gap: 0.15rem;
+  text-align: left;
+}
+
+.action-label {
+  font-weight: 600;
+}
+
+.action-hint {
+  font-size: 0.78rem;
+  color: var(--ink-soft);
+}
+
 @media (max-width: 860px) {
   .shell {
     grid-template-columns: 1fr;

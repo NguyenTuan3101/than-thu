@@ -3,21 +3,21 @@
 ## Phase 0 — Design (now)
 
 - [x] GDD + art + tech docs  
-- [ ] Duyệt tên chính thức + GitHub repo  
+- [x] GitHub `NguyenTuan3101/than-thu`  
 
 ## Phase 1 — Skeleton web
 
-- Vite React TS  
-- Màn hub giả  
-- Pixi stage: giấy + 1 node đằng  
-- Save stub  
+- [x] Vite React TS  
+- [x] Màn hub giả  
+- [x] Pixi stage: giấy + 1 node đằng  
+- [x] Save stub (zustand persist)  
 
 ## Phase 2 — Một kiếp Suy diễn
 
-- Roll tag thế giới  
-- Loop mùa: 4–6 lựa chọn  
-- Sinh lực / chết / về  
-- 8–12 năng lực  
+- [x] Roll tag thế giới  
+- [x] Loop mùa: 6 lựa chọn (Phun độc khóa theo trait)  
+- [x] Sinh lực / chết / về sớm (thưởng khác nhau)  
+- [x] 12 năng lực + khắc vĩnh viễn vào gia từ  
 
 ## Phase 3 — Meta + Thần Thụ
 

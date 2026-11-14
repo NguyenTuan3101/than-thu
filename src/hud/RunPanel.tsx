@@ -1,24 +1,42 @@
+import { traitById } from '../game/data/traits'
 import { useMetaStore } from '../game/meta/store'
-import { SEASON_ACTIONS, useRunStore } from '../game/run/runStore'
+import {
+  LONGEVITY_AGE,
+  SEASON_ACTIONS,
+  availableActions,
+  useRunStore,
+} from '../game/run/runStore'
 
 export function RunPanel() {
+  const absorbRun = useMetaStore((s) => s.absorbRun)
   const setScreen = useMetaStore((s) => s.setScreen)
-  const addSuyDien = useMetaStore((s) => s.addSuyDien)
   const season = useRunStore((s) => s.season)
   const hp = useRunStore((s) => s.hp)
   const hpMax = useRunStore((s) => s.hpMax)
   const age = useRunStore((s) => s.age)
   const tags = useRunStore((s) => s.tags)
+  const traits = useRunStore((s) => s.traits)
   const log = useRunStore((s) => s.log)
   const active = useRunStore((s) => s.active)
   const doAction = useRunStore((s) => s.doAction)
+  const recall = useRunStore((s) => s.recall)
   const endRun = useRunStore((s) => s.endRun)
+  const runState = useRunStore()
+  const actions = availableActions(runState)
 
   const finish = (reward: number, reason: string) => {
-    addSuyDien(reward)
+    const run = useRunStore.getState()
+    const newly = absorbRun({
+      rewardSuyDien: reward,
+      age: run.age,
+      traits: run.traits,
+    })
     endRun()
     setScreen('hub')
-    window.alert(`${reason}\nNhận ${reward} điểm Suy diễn.`)
+    const traitLine = newly.length
+      ? `\nKhắc vào gia từ: ${newly.map((id) => traitById(id).name).join(', ')}`
+      : ''
+    window.alert(`${reason}\nNhận ${reward} điểm Suy diễn.${traitLine}`)
   }
 
   return (
@@ -26,7 +44,7 @@ export function RunPanel() {
       <header className="panel-head">
         <h1>Kỳ Suy diễn · Mùa {season}</h1>
         <p className="muted">
-          {tags.map((t) => t.name).join(' · ') || '…'}
+          {tags.map((t) => t.name).join(' · ') || '…'} · Đích tuổi {LONGEVITY_AGE}
         </p>
       </header>
 
@@ -38,7 +56,9 @@ export function RunPanel() {
       </div>
       <div className="stat-row">
         <span>Tuổi kiếp</span>
-        <strong>{age}</strong>
+        <strong>
+          {age} / {LONGEVITY_AGE}
+        </strong>
       </div>
 
       <div className="tag-list">
@@ -50,29 +70,57 @@ export function RunPanel() {
         ))}
       </div>
 
+      {traits.length > 0 && (
+        <div className="trait-wrap">
+          <div className="trait-title">Năng lực kiếp này</div>
+          <div className="trait-chips">
+            {traits.map((id) => (
+              <span key={id} className="chip" title={traitById(id).desc}>
+                {traitById(id).name}
+              </span>
+            ))}
+          </div>
+        </div>
+      )}
+
       <div className="actions">
-        {SEASON_ACTIONS.map((a) => (
-          <button
-            key={a.id}
-            type="button"
-            disabled={!active}
-            onClick={() => {
-              const result = doAction(a.id)
-              if (result.ended) {
-                const reason =
-                  useRunStore.getState().hp <= 0
-                    ? 'Đằng gãy giữa kiếp.'
-                    : 'Đằng sống đủ lâu — lĩnh ngộ rút về.'
-                finish(result.rewardSuyDien, reason)
-              }
-            }}
-          >
-            {a.label}
-          </button>
-        ))}
+        {actions.map((a) => {
+          const meta = SEASON_ACTIONS.find((x) => x.id === a.id)
+          return (
+            <button
+              key={a.id}
+              type="button"
+              disabled={!active}
+              title={meta?.hint}
+              onClick={() => {
+                const result = doAction(a.id)
+                if (result.ended) {
+                  const reason =
+                    result.end === 'dead'
+                      ? 'Đằng gãy giữa kiếp — vẫn giữ được một phần lĩnh ngộ.'
+                      : 'Đằng sống đủ lâu — lĩnh ngộ rút về.'
+                  finish(result.rewardSuyDien, reason)
+                }
+              }}
+            >
+              <span className="action-label">{a.label}</span>
+              {meta?.hint ? <span className="action-hint">{meta.hint}</span> : null}
+            </button>
+          )
+        })}
         <button
           type="button"
-          onClick={() => finish(Math.max(1, Math.floor(age / 2)), 'Rút rễ về gia từ.')}
+          className="primary"
+          disabled={!active}
+          onClick={() => {
+            const result = recall()
+            finish(
+              result.rewardSuyDien,
+              age === 0
+                ? 'Rút ngay — gần như không lĩnh ngộ.'
+                : 'Rút rễ sớm: an toàn, thưởng vừa phải.',
+            )
+          }}
         >
           Về sớm
         </button>
