@@ -1,0 +1,57 @@
+:root {
+  --paper: #f3ebd8;
+  --parchment: #e2d2b0;
+  --ink: #1a1a1a;
+  --ink-soft: #4a4a4a;
+  --seal: #a31d1d;
+  --jade: #3f6b5c;
+  --danger: #5c4a6e;
+  font-family: "Noto Serif", "Times New Roman", serif;
+  color: var(--ink);
+  background: var(--paper);
+  font-synthesis: none;
+  text-rendering: optimizeLegibility;
+  -webkit-font-smoothing: antialiased;
+}
+
+* {
+  box-sizing: border-box;
+}
+
+html,
+body,
+#root {
+  margin: 0;
+  min-height: 100%;
+  height: 100%;
+}
+
+body {
+  background:
+    radial-gradient(ellipse 90% 70% at 50% 30%, #f7f1e1 0%, var(--paper) 55%, var(--parchment) 100%);
+}
+
+button {
+  font: inherit;
+  cursor: pointer;
+  color: var(--ink);
+  background: color-mix(in srgb, var(--paper) 80%, white);
+  border: 1px solid color-mix(in srgb, var(--ink) 35%, transparent);
+  border-radius: 4px;
+  padding: 0.55rem 0.9rem;
+}
+
+button:hover {
+  border-color: var(--seal);
+}
+
+button.primary {
+  background: color-mix(in srgb, var(--seal) 12%, var(--paper));
+  border-color: var(--seal);
+  color: var(--seal);
+}
+
+button:disabled {
+  opacity: 0.45;
+  cursor: not-allowed;
+}

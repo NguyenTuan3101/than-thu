@@ -1,0 +1,137 @@
+.shell {
+  display: grid;
+  grid-template-columns: minmax(280px, 380px) 1fr;
+  height: 100%;
+  min-height: 100vh;
+  gap: 0;
+}
+
+.shell-side {
+  padding: 1.25rem;
+  border-right: 1px solid color-mix(in srgb, var(--ink) 18%, transparent);
+  background: color-mix(in srgb, var(--paper) 70%, transparent);
+  overflow: auto;
+}
+
+.shell-stage {
+  position: relative;
+  min-height: 320px;
+}
+
+.vine-stage {
+  width: 100%;
+  height: 100%;
+  min-height: 100vh;
+}
+
+.vine-stage canvas {
+  display: block;
+  width: 100%;
+  height: 100%;
+}
+
+.stage-caption {
+  position: absolute;
+  left: 1rem;
+  bottom: 1rem;
+  display: flex;
+  align-items: center;
+  gap: 0.6rem;
+  padding: 0.45rem 0.75rem;
+  background: color-mix(in srgb, var(--paper) 88%, white);
+  border: 1px solid color-mix(in srgb, var(--ink) 20%, transparent);
+  border-radius: 4px;
+  font-size: 0.9rem;
+  color: var(--ink-soft);
+}
+
+.stage-caption .dao {
+  color: var(--seal);
+  font-size: 1.4rem;
+  line-height: 1;
+}
+
+.panel-head h1 {
+  margin: 0 0 0.35rem;
+  font-weight: 600;
+  font-size: 1.55rem;
+}
+
+.panel-head .muted,
+.muted {
+  margin: 0;
+  color: var(--ink-soft);
+  font-size: 0.92rem;
+  line-height: 1.45;
+}
+
+.stat-row {
+  display: flex;
+  justify-content: space-between;
+  margin-top: 0.85rem;
+  padding-bottom: 0.35rem;
+  border-bottom: 1px dashed color-mix(in srgb, var(--ink) 18%, transparent);
+}
+
+.actions {
+  display: flex;
+  flex-direction: column;
+  gap: 0.5rem;
+  margin-top: 1rem;
+}
+
+.tag-list {
+  display: grid;
+  gap: 0.5rem;
+  margin-top: 0.9rem;
+}
+
+.tag {
+  display: grid;
+  gap: 0.15rem;
+  padding: 0.55rem 0.65rem;
+  background: color-mix(in srgb, var(--parchment) 55%, transparent);
+  border-left: 3px solid var(--seal);
+}
+
+.tag span {
+  font-size: 0.85rem;
+  color: var(--ink-soft);
+}
+
+.log {
+  margin: 1rem 0 0;
+  padding: 0;
+  list-style: none;
+  max-height: 220px;
+  overflow: auto;
+  font-size: 0.86rem;
+  color: var(--ink-soft);
+}
+
+.log li {
+  padding: 0.35rem 0;
+  border-bottom: 1px solid color-mix(in srgb, var(--ink) 10%, transparent);
+}
+
+.seal-note {
+  margin-top: 1rem;
+  color: var(--seal);
+  font-size: 0.9rem;
+}
+
+@media (max-width: 860px) {
+  .shell {
+    grid-template-columns: 1fr;
+    grid-template-rows: auto 42vh;
+  }
+
+  .shell-side {
+    border-right: 0;
+    border-bottom: 1px solid color-mix(in srgb, var(--ink) 18%, transparent);
+  }
+
+  .vine-stage {
+    min-height: 42vh;
+  }
+}
