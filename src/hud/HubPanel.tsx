@@ -1,4 +1,5 @@
 import { traitById } from '../game/data/traits'
+import { useClanStore } from '../game/clan/clanStore'
 import {
   RUN_COST,
   THAN_THU_BEST_AGE,
@@ -16,7 +17,6 @@ export function HubPanel() {
   const runsCompleted = useMetaStore((s) => s.runsCompleted)
   const addSuyDien = useMetaStore((s) => s.addSuyDien)
   const setScreen = useMetaStore((s) => s.setScreen)
-  const ascendThanThu = useMetaStore((s) => s.ascendThanThu)
   const startRun = useRunStore((s) => s.startRun)
 
   const ready = canStartRun(suyDien)
@@ -78,20 +78,27 @@ export function HubPanel() {
         >
           Kỳ Suy diễn (−{RUN_COST})
         </button>
-        {!thanThu && (
-          <button type="button" onClick={ascendThanThu}>
-            [Dev] Thăng Thần Thụ
+        {thanThu && (
+          <button
+            type="button"
+            className="primary"
+            onClick={() => {
+              useClanStore.getState().ensureClanWorld()
+              setScreen('clan')
+            }}
+          >
+            Ban chỉ trị tộc
           </button>
         )}
       </div>
 
       {!thanThu && (
         <p className="muted tip">
-          Thần Thụ khi đủ {THAN_THU_RUNS} kiếp và tuổi kỷ lục ≥ {THAN_THU_BEST_AGE} (hoặc nút Dev).
+          Thành Thần Thụ khi đủ {THAN_THU_RUNS} kiếp và tuổi kỷ lục ≥ {THAN_THU_BEST_AGE}.
         </p>
       )}
       {thanThu && (
-        <p className="seal-note">Ấn thần đã đóng. Ban chỉ trị tộc → Phase 3.</p>
+        <p className="seal-note">Ấn thần đã đóng. Hãy ban chỉ, cạnh tranh Bạch Hổ / Huyền Xà.</p>
       )}
     </section>
   )

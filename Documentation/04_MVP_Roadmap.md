@@ -21,10 +21,10 @@
 
 ## Phase 3 — Meta + Thần Thụ
 
-- Điểm Suy diễn hub  
-- Điều kiện Thần Thụ  
-- Ban chỉ 6 lệnh  
-- 2 gia tộc địch rất đơn giản  
+- [x] Điểm Suy diễn hub  
+- [x] Điều kiện Thần Thụ (3 kiếp + tuổi 8), bỏ nút Dev  
+- [x] Ban chỉ 8 lệnh + cúng tế  
+- [x] 2 gia tộc địch (Bạch Hổ / Huyền Xà) AI nhẹ  
 
 ## Phase 4 — Juice giấy mực
 
